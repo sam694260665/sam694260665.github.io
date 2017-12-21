@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="study," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Vue.js高仿饿了么实战总结（二） 一、项目实战-header组件开发 安装ajax异步请求插件vue-resource：cnpm install vue-resource –save-dev post-css根据can i use自动添加浏览器兼容 配置项目整体路由">
+<meta name="keywords" content="study">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue.js高仿饿了么实战总结（二）">
+<meta property="og:url" content="http://yoursite.com/2017/12/21/Vue.js高仿饿了么实战总结（二）/index.html">
+<meta property="og:site_name" content="My code life">
+<meta property="og:description" content="Vue.js高仿饿了么实战总结（二） 一、项目实战-header组件开发 安装ajax异步请求插件vue-resource：cnpm install vue-resource –save-dev post-css根据can i use自动添加浏览器兼容 配置项目整体路由">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-21T07:06:06.159Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue.js高仿饿了么实战总结（二）">
+<meta name="twitter:description" content="Vue.js高仿饿了么实战总结（二） 一、项目实战-header组件开发 安装ajax异步请求插件vue-resource：cnpm install vue-resource –save-dev post-css根据can i use自动添加浏览器兼容 配置项目整体路由">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/21/Vue.js高仿饿了么实战总结（二）/"/>
+
+
+
+
+
+  <title>Vue.js高仿饿了么实战总结（二） | My code life</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	<a href="https://github.com/sam694260665"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My code life</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/Vue.js高仿饿了么实战总结（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ezreal Sam">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue.js高仿饿了么实战总结（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-21T14:47:15+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,080 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Vue-js高仿饿了么实战总结（二）"><a href="#Vue-js高仿饿了么实战总结（二）" class="headerlink" title="Vue.js高仿饿了么实战总结（二）"></a>Vue.js高仿饿了么实战总结（二）</h4><blockquote>
+<h5 id="一、项目实战-header组件开发"><a href="#一、项目实战-header组件开发" class="headerlink" title="一、项目实战-header组件开发"></a>一、项目实战-header组件开发</h5><ul>
+<li>安装ajax异步请求插件vue-resource：cnpm install vue-resource –save-dev</li>
+<li>post-css根据can i use自动添加浏览器兼容</li>
+<li>配置项目整体路由<a id="more"></a>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//文件位置：src/APP.vue</span></div><div class="line">&lt;template&gt;</div><div class="line">    &lt;div id=<span class="string">"app"</span>&gt;</div><div class="line">    &lt;v-header :seller=<span class="string">"seller"</span>&gt;&lt;/v-header&gt;</div><div class="line">      &lt;div class="tab border-1px"&gt;</div><div class="line">        &lt;div class="tab-item"&gt;</div><div class="line">          &lt;!-- 使用 router-link 组件来导航. --&gt;</div><div class="line">          &lt;!-- 通过传入 `to` 属性指定链接. --&gt;</div><div class="line">          &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;</div><div class="line">          &lt;router-link to="/goods" &gt;商品&lt;/router-link&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div class="tab-item"&gt;</div><div class="line">          &lt;router-link to="/ratings"&gt;评论&lt;/router-link&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div class="tab-item"&gt;</div><div class="line">          &lt;router-link to="/seller"&gt;商家&lt;/router-link&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">      &lt;div class="content"&gt;</div><div class="line">        &lt;!--keep-alive会使得之前的操作默认会被记住--&gt;</div><div class="line">        &lt;keep-alive&gt;</div><div class="line">          &lt;router-view :seller="seller"&gt;&lt;/router-view&gt;</div><div class="line">        &lt;/keep-alive&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script type="text/ecmascript-6"&gt;</div><div class="line"> import header from './components/header/header.vue'</div><div class="line"> import &#123;urlParse&#125; from './common/js/util'</div><div class="line"></div><div class="line"> const ERR_OK = 0 //OK状态码</div><div class="line">  export default&#123;</div><div class="line">   data() &#123;</div><div class="line">     return &#123;</div><div class="line">       seller: &#123;</div><div class="line">         id: (() =&gt; &#123;</div><div class="line">           let queryParam = urlParse()</div><div class="line">           console.log(queryParam)</div><div class="line">           return queryParam.id</div><div class="line">         &#125;)()</div><div class="line">       &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">    created() &#123;</div><div class="line">     this.$http.get('/api/seller?id=' + this.seller.id).then((response) =&gt; &#123;</div><div class="line">        response = response.body  //返回json对象</div><div class="line">       // console.log(response)</div><div class="line">        if (response.errno === ERR_OK) &#123;</div><div class="line">            this.seller = response.data</div><div class="line">          //es6语法赋值  (最终返回的数组，source 以extend方法扩展对象属性）</div><div class="line">            this.seller = Object.assign(&#123;&#125;, this.seller, response.data)</div><div class="line">            console.log(this.seller)</div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line">   components: &#123;</div><div class="line">     'v-header': header</div><div class="line">   &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;style lang="stylus" rel="stylesheet/stylus"&gt;</div><div class="line">  @import './common/stylus/mixin.styl';</div><div class="line">  #app</div><div class="line">    .tab</div><div class="line">      display: flex</div><div class="line">      width: 100%</div><div class="line">      height: 40px</div><div class="line">      line-height: 40px</div><div class="line">      border-1px(rgba(7,17,27,0.1))</div><div class="line">      .tab-item</div><div class="line">        flex: 1</div><div class="line">        text-align: center</div><div class="line">        &amp; &gt; a</div><div class="line">          display: block</div><div class="line">          font-size: 14px</div><div class="line">          color: rgb(77,85,93)</div><div class="line">          &amp;.active</div><div class="line">            color: rgb(240,20,20) </div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 文件位置：src/router/index.js</span></div><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</div><div class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">'vue-router'</span>;</div><div class="line"><span class="comment">/* import Hello from '@/components/Hello'; */</span></div><div class="line"><span class="keyword">import</span> goods <span class="keyword">from</span> <span class="string">'@/components/goods/goods.vue'</span>;</div><div class="line"><span class="keyword">import</span> ratings <span class="keyword">from</span> <span class="string">'@/components/ratings/ratings.vue'</span>;</div><div class="line"><span class="keyword">import</span> seller <span class="keyword">from</span> <span class="string">'@/components/seller/seller.vue'</span>;</div><div class="line"></div><div class="line">Vue.use(Router);</div><div class="line"></div><div class="line"><span class="keyword">const</span> routes = [&#123;</div><div class="line">  path: <span class="string">'/'</span>,</div><div class="line">  component: goods</div><div class="line">&#125;, &#123;</div><div class="line">  path: <span class="string">'/goods'</span>,</div><div class="line">  component: goods</div><div class="line">&#125;, &#123;</div><div class="line">  path: <span class="string">'/ratings'</span>,</div><div class="line">  component: ratings</div><div class="line">&#125;, &#123;</div><div class="line">  path: <span class="string">'/seller'</span>,</div><div class="line">  component: seller</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</div><div class="line">  linkActiveClass: <span class="string">'active'</span>, <span class="comment">// 自定义路由激活class名</span></div><div class="line">  routes: routes</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>配置项目整体依赖</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//文件位置： src/main.js </span></div><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></div><div class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></div><div class="line"><span class="keyword">import</span> VueResource <span class="keyword">from</span> <span class="string">'vue-resource'</span></div><div class="line"><span class="keyword">import</span> VueBus <span class="keyword">from</span> <span class="string">'vue-bus'</span></div><div class="line"><span class="keyword">import</span> goods <span class="keyword">from</span> <span class="string">'./components/goods/goods.vue'</span></div><div class="line"><span class="keyword">import</span> ratings <span class="keyword">from</span> <span class="string">'./components/ratings/ratings.vue'</span></div><div class="line"><span class="keyword">import</span> seller <span class="keyword">from</span> <span class="string">'./components/seller/seller.vue'</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">'./common/stylus/index.styl'</span></div><div class="line"></div><div class="line">Vue.config.productionTip = <span class="literal">false</span></div><div class="line"></div><div class="line">Vue.use(VueRouter)</div><div class="line"><span class="comment">// 使用Vue-resource必须放在前面，放在后面报错</span></div><div class="line">Vue.use(VueResource)</div><div class="line"><span class="comment">//vue-bus事件处理中心</span></div><div class="line">Vue.use(VueBus)</div><div class="line"></div><div class="line"><span class="keyword">const</span> routes = [</div><div class="line">  &#123;<span class="attr">path</span>: <span class="string">'/goods'</span>, <span class="attr">component</span>: goods&#125;,</div><div class="line">  &#123; <span class="attr">path</span>: <span class="string">'/ratings'</span>, <span class="attr">component</span>: ratings &#125;,</div><div class="line">  &#123; <span class="attr">path</span>: <span class="string">'/seller'</span>, <span class="attr">component</span>: seller &#125;</div><div class="line">]</div><div class="line"></div><div class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</div><div class="line">  routes, <span class="comment">// （缩写）相当于 routes: routes</span></div><div class="line">  linkActiveClass: <span class="string">'active'</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 页面加载自动导航到goods页面</span></div><div class="line">router.push(<span class="string">'/goods'</span>)</div><div class="line"><span class="comment">/* eslint-disable no-new */</span></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  el: <span class="string">'#app'</span>,</div><div class="line">  router,</div><div class="line">  template: <span class="string">'&lt;App/&gt;'</span>,</div><div class="line">  components: &#123; App &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>通用样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div></pre></td><td class="code"><pre><div class="line">// 文件位置：static/css/reset.css</div><div class="line">/**</div><div class="line"> * Eric Meyer&apos;s Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)</div><div class="line"> * http://cssreset.com</div><div class="line"> */</div><div class="line">html, body, div, span, applet, object, iframe,</div><div class="line">h1, h2, h3, h4, h5, h6, p, blockquote, pre,</div><div class="line">a, abbr, acronym, address, big, cite, code,</div><div class="line">del, dfn, em, img, ins, kbd, q, s, samp,</div><div class="line">small, strike, strong, sub, sup, tt, var,</div><div class="line">b, u, i, center,</div><div class="line">dl, dt, dd, ol, ul, li,</div><div class="line">fieldset, form, label, legend,</div><div class="line">table, caption, tbody, tfoot, thead, tr, th, td,</div><div class="line">article, aside, canvas, details, embed,</div><div class="line">figure, figcaption, footer, header,</div><div class="line">menu, nav, output, ruby, section, summary,</div><div class="line">time, mark, audio, video, input &#123;</div><div class="line">    margin: 0;</div><div class="line">    padding: 0;</div><div class="line">    border: 0;</div><div class="line">    font-size: 100%;</div><div class="line">    font-weight: normal;</div><div class="line">    vertical-align: baseline;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/* HTML5 display-role reset for older browsers */</div><div class="line">article, aside, details, figcaption, figure,</div><div class="line">footer, header, menu, nav, section &#123;</div><div class="line">    display: block;</div><div class="line">&#125;</div><div class="line"></div><div class="line">body &#123;</div><div class="line">    line-height: 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">blockquote, q &#123;</div><div class="line">    quotes: none;</div><div class="line">&#125;</div><div class="line"></div><div class="line">blockquote:before, blockquote:after,</div><div class="line">q:before, q:after &#123;</div><div class="line">    content: none;</div><div class="line">&#125;</div><div class="line"></div><div class="line">table &#123;</div><div class="line">    border-collapse: collapse;</div><div class="line">    border-spacing: 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/* custom */</div><div class="line">a &#123;</div><div class="line">    color: #7e8c8d;</div><div class="line">    text-decoration: none;</div><div class="line">    text-decoration: none;</div><div class="line">    -webkit-backface-visibility: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line">li &#123;</div><div class="line">    list-style: none;</div><div class="line">&#125;</div><div class="line"></div><div class="line">::-webkit-scrollbar &#123;</div><div class="line">    width: 5px;</div><div class="line">    height: 5px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">::-webkit-scrollbar-track-piece &#123;</div><div class="line">    background-color: rgba(0, 0, 0, 0.2);</div><div class="line">    -webkit-border-radius: 6px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">::-webkit-scrollbar-thumb:vertical &#123;</div><div class="line">    height: 5px;</div><div class="line">    background-color: rgba(125, 125, 125, 0.7);</div><div class="line">    -webkit-border-radius: 6px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">::-webkit-scrollbar-thumb:horizontal &#123;</div><div class="line">    width: 5px;</div><div class="line">    background-color: rgba(125, 125, 125, 0.7);</div><div class="line">    -webkit-border-radius: 6px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">html, body &#123;</div><div class="line">    width: 100%;</div><div class="line">&#125;</div><div class="line"></div><div class="line">body &#123;</div><div class="line">    -webkit-text-size-adjust: none;</div><div class="line">    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">// 文件位置：src/common/stylus/base.styl</div><div class="line">body, html</div><div class="line">  line-height: 1</div><div class="line">  font-weight: 200</div><div class="line">  font-family: &apos;PingFang SC&apos;, &apos;STHeitiSC-Light&apos;, &apos;Helvetica-Light&apos;, arial, sans-serif</div><div class="line"></div><div class="line">.clearfix</div><div class="line">  display: inline-block</div><div class="line">  &amp;:after</div><div class="line">    display: block</div><div class="line">    content: &quot;.&quot;</div><div class="line">    height: 0</div><div class="line">    line-height: 0</div><div class="line">    clear: both</div><div class="line">    visibility: hidden</div><div class="line"></div><div class="line">@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)</div><div class="line">  .border-1px</div><div class="line">    &amp;::after</div><div class="line">      -webkit-transform: scaleY(0.7)</div><div class="line">      transform: scaleY(0.7)</div><div class="line"></div><div class="line">@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2)</div><div class="line">  .border-1px</div><div class="line">    &amp;::after</div><div class="line">      -webkit-transform: scaleY(0.5)</div><div class="line">      transform: scaleY(0.5)</div><div class="line"></div><div class="line"></div><div class="line">// 文件位置：src/common/stylus/mixin.styl</div><div class="line">border-1px($color)</div><div class="line">  position: relative;</div><div class="line">  //清除浮动</div><div class="line">  &amp;:after</div><div class="line">    display: block</div><div class="line">    position absolute</div><div class="line">    left: 0</div><div class="line">    bottom: 0</div><div class="line">    border-top 1px solid $color</div><div class="line">    width: 100%</div><div class="line">    content: &apos;&apos;</div><div class="line"></div><div class="line">bg-image($url)</div><div class="line">  background-image url($url + &quot;@2x.png&quot;)</div><div class="line">  @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio)</div><div class="line">    background-image url($url + &quot;@3x.png&quot;)</div><div class="line"></div><div class="line">border-none()</div><div class="line">  &amp;:after</div><div class="line">    display: none</div><div class="line"></div><div class="line"></div><div class="line">// 引用mixin</div><div class="line">@import &quot;common/stylus/mixin.styl&quot;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h5 id="二、项目实战-goods-商品列表页开发"><a href="#二、项目实战-goods-商品列表页开发" class="headerlink" title="二、项目实战-goods 商品列表页开发"></a>二、项目实战-goods 商品列表页开发</h5><ul>
+<li>安装better-scroll：cnpm install better-scroll –save-dev<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ref属性一定是驼峰式命名的，不能用连字符的；</span></div><div class="line"><span class="comment">// ref可以用来获取HTML元素，同时也能获取子组件</span></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">&lt;ul ref='food'&gt;</span></div><div class="line"><span class="comment">   &lt;li&gt;&lt;/li&gt; </span></div><div class="line"><span class="comment">&lt;/ul&gt;</span></div><div class="line"><span class="comment">&lt;shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"&gt;&lt;/shopcart&gt;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"></div><div class="line"><span class="keyword">this</span>.$refs.food</div><div class="line"><span class="keyword">this</span>.$refs.food.getElementByTagName(<span class="string">'li'</span>)</div><div class="line"><span class="keyword">this</span>.$refs.shopcart.drop(target);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>在created钩子的ajax异步请求成功后执行better-scroll初始化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  created() &#123;</div><div class="line">    <span class="keyword">this</span>.classMap = [<span class="string">'decrease'</span>, <span class="string">'discount'</span>, <span class="string">'special'</span>, <span class="string">'invoice'</span>, <span class="string">'guarantee'</span>];</div><div class="line">    <span class="keyword">this</span>.$http.get(<span class="string">'/api/goods'</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</div><div class="line">      <span class="comment">// get body data</span></div><div class="line">      response = response.body; <span class="comment">// 返回json对象</span></div><div class="line">      <span class="keyword">if</span> (response.error === ERR_OK) &#123;</div><div class="line">        <span class="keyword">this</span>.goods = response.data;</div><div class="line">        <span class="comment">//this.$nextTick() =&gt; 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。</span></div><div class="line">        <span class="comment">//数据发生变化后，不能直接更新在dom上，需要在回调函数中刷新DOM,即异步加载DOM		</span></div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.goods);</div><div class="line">        <span class="comment">// DOM异步加载完成后</span></div><div class="line">        <span class="comment">// 调用better-scroll封装的方法</span></div><div class="line">        <span class="comment">// 动态计算每个区块的高度</span></div><div class="line">        <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">          <span class="keyword">this</span>._initScroll();</div><div class="line">          <span class="keyword">this</span>._calculateHeight();</div><div class="line">        &#125;)</div><div class="line">      &#125;</div><div class="line">    &#125;, response =&gt; &#123;</div><div class="line">      <span class="comment">// error callback</span></div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>better-scroll 会禁止移动端的点击事件，需要重新派发，同时在PC端会点击两次，此处需要做判断</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</div><div class="line">  props: &#123;</div><div class="line">    seller: &#123;</div><div class="line">      type: <span class="built_in">Object</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  data() &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      goods: [],</div><div class="line">      listHeight: [],</div><div class="line">      scrollY: <span class="number">0</span>,</div><div class="line">      selectedFood: &#123;&#125;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  computed: &#123;</div><div class="line">    currentIndex() &#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.listHeight.length; i++) &#123;</div><div class="line">        <span class="keyword">let</span> height1 = <span class="keyword">this</span>.listHeight[i]</div><div class="line">        <span class="keyword">let</span> height2 = <span class="keyword">this</span>.listHeight[i + <span class="number">1</span>] <span class="comment">//listHeight[length]返回undefined,所以可以用!height2做判断不是最后一个</span></div><div class="line">        <span class="keyword">if</span> (!height2 || <span class="keyword">this</span>.scrollY &gt;= height1 &amp;&amp; <span class="keyword">this</span>.scrollY &lt; height2) &#123;</div><div class="line">           <span class="keyword">return</span> i</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    &#125;,</div><div class="line">    selectFoods() &#123;</div><div class="line">      <span class="keyword">let</span> foods = []</div><div class="line">      <span class="keyword">this</span>.goods.forEach(<span class="function">(<span class="params">good</span>) =&gt;</span> &#123;</div><div class="line">        good.foods.forEach(<span class="function">(<span class="params">food</span>) =&gt;</span> &#123;</div><div class="line">          <span class="keyword">if</span> (food.count) &#123;</div><div class="line">            foods.push(food)</div><div class="line">          &#125;</div><div class="line">        &#125;)</div><div class="line">      &#125;)</div><div class="line">      <span class="keyword">return</span> foods</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  created() &#123;</div><div class="line">    <span class="keyword">this</span>.classMap = [<span class="string">'decrease'</span>, <span class="string">'discount'</span>, <span class="string">'special'</span>, <span class="string">'invoice'</span>, <span class="string">'guarantee'</span>]</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.$http.get(<span class="string">'/api/goods'</span>).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</div><div class="line">      response = response.body</div><div class="line">      <span class="keyword">if</span> (response.errno === ERR_OK) &#123;</div><div class="line">        <span class="keyword">this</span>.goods = response.data</div><div class="line">        <span class="comment">//this.$nextTick() =&gt; 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。</span></div><div class="line">        <span class="comment">//数据发生变化后，不能直接更新在dom上，需要在回调函数中刷新DOM,即异步加载DOM</span></div><div class="line">        <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">          <span class="keyword">this</span>._initScroll()</div><div class="line">          <span class="keyword">this</span>._calculateHeight()</div><div class="line">        &#125;)</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    <span class="comment">//    this.$refs：取得DOM对象</span></div><div class="line">    getFood(el) &#123;</div><div class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        <span class="keyword">this</span>.$refs.shopcart.drop(el)</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//左右连动</span></div><div class="line">    selectMenu(index, event) &#123;</div><div class="line">      <span class="comment">//event._constructed是为true,pc浏览器没有此事件</span></div><div class="line">      <span class="keyword">if</span> (!event._constructed) &#123;</div><div class="line">        <span class="keyword">return</span></div><div class="line">      &#125;</div><div class="line">      <span class="keyword">let</span> foodList = <span class="keyword">this</span>.$refs.foodsWrapper.getElementsByClassName(<span class="string">'food-list-hook'</span>)</div><div class="line">      <span class="keyword">let</span> el = foodList[index]</div><div class="line">      <span class="keyword">this</span>.foodsScroll.scrollToElement(el, <span class="number">300</span>)</div><div class="line">    &#125;,</div><div class="line">    _initScroll() &#123;</div><div class="line">      <span class="comment">//        this.$refs：取得DOM对象</span></div><div class="line">      <span class="keyword">this</span>.menuScroll = <span class="keyword">new</span> BScroll(<span class="keyword">this</span>.$refs.menuWrapper, &#123;</div><div class="line">        click: <span class="literal">true</span>   <span class="comment">//取消默认阻止事件</span></div><div class="line">      &#125;)</div><div class="line">      <span class="keyword">this</span>.foodsScroll = <span class="keyword">new</span> BScroll(<span class="keyword">this</span>.$refs.foodsWrapper, &#123;</div><div class="line">        click: <span class="literal">true</span>,</div><div class="line">        probeType: <span class="number">3</span>    <span class="comment">//监听事件的触发时间，1为即时触发，3为延迟到事件完毕后触发</span></div><div class="line">      &#125;)</div><div class="line">      <span class="keyword">this</span>.foodsScroll.on(<span class="string">'scroll'</span>, (pos) =&gt; &#123;</div><div class="line">         <span class="keyword">this</span>.scrollY = <span class="built_in">Math</span>.abs(<span class="built_in">Math</span>.round(pos.y))</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line">    _calculateHeight() &#123;</div><div class="line">      <span class="keyword">let</span> foodList = <span class="keyword">this</span>.$refs.foodsWrapper.getElementsByClassName(<span class="string">'food-list-hook'</span>)</div><div class="line">      <span class="keyword">let</span> height = <span class="number">0</span></div><div class="line">      <span class="keyword">this</span>.listHeight.push(height)</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; foodList.length; i++) &#123;</div><div class="line">        <span class="keyword">let</span> item = foodList[i]</div><div class="line">        height += item.clientHeight</div><div class="line">        <span class="keyword">this</span>.listHeight.push(height)</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    getEvent(el) &#123;</div><div class="line">      <span class="comment">// 体验优化,异步执行下落动画</span></div><div class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        <span class="keyword">this</span>.$refs.shopcart.drop(el)</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line">    selectFood(food, event) &#123;</div><div class="line">      <span class="keyword">if</span> (!event._constructed) &#123;</div><div class="line">        <span class="keyword">return</span></div><div class="line">      &#125;</div><div class="line">      <span class="keyword">this</span>.selectedFood = food</div><div class="line">      <span class="keyword">this</span>.$refs.food.show()  <span class="comment">//拿到food组件 调用show方法</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  components: &#123;</div><div class="line">    shopcart,</div><div class="line">    cartcontrol,</div><div class="line">    food</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>参数添加属性，并使其能被观测到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 给food添加count属性，并设置它的值为1，这样VUE就可以观测到</span></div><div class="line">Vue.set(<span class="keyword">this</span>.food, <span class="string">'count'</span>, <span class="number">1</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>小球动画函数监听</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    methods: &#123;</div><div class="line">        drop(el) &#123;</div><div class="line">            <span class="comment">// console.log(el);</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.balls.length; i++) &#123;</div><div class="line">                <span class="keyword">let</span> ball = <span class="keyword">this</span>.balls[i];</div><div class="line">                <span class="keyword">if</span> (!ball.show) &#123;</div><div class="line">                    ball.show = <span class="literal">true</span>;</div><div class="line">                    ball.el = el;</div><div class="line">                    <span class="keyword">this</span>.dropBalls.push(ball);</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="comment">// 小球动画钩子</span></div><div class="line">        beforeDrop: <span class="function"><span class="keyword">function</span> (<span class="params">el</span>) </span>&#123;</div><div class="line">            <span class="keyword">let</span> count = <span class="keyword">this</span>.balls.length;</div><div class="line">            <span class="keyword">while</span> (count--) &#123;</div><div class="line">                <span class="keyword">let</span> ball = <span class="keyword">this</span>.balls[count];</div><div class="line">                <span class="keyword">if</span> (ball.show) &#123;</div><div class="line">                    <span class="keyword">let</span> rect = ball.el.getBoundingClientRect();</div><div class="line">                    <span class="keyword">let</span> x = rect.left - <span class="number">32</span>;</div><div class="line">                    <span class="keyword">let</span> y = -(<span class="built_in">window</span>.innerHeight - rect.top - <span class="number">22</span>);</div><div class="line">                    el.style.display = <span class="string">''</span>;</div><div class="line">                    el.style.webkitTransform = <span class="string">`translate3d(0,<span class="subst">$&#123;y&#125;</span>px,0)`</span>;</div><div class="line">                    el.style.transform = <span class="string">`translate3d(0,<span class="subst">$&#123;y&#125;</span>px,0)`</span>;</div><div class="line">                    <span class="keyword">let</span> inner = el.getElementsByClassName(<span class="string">'inner-hook'</span>)[<span class="number">0</span>];</div><div class="line">                    inner.style.webkitTransform = <span class="string">`translate3d(<span class="subst">$&#123;x&#125;</span>px,0,0)`</span>;</div><div class="line">                    inner.style.transform = <span class="string">`translate3d(<span class="subst">$&#123;x&#125;</span>px,0,0)`</span>;</div><div class="line">                    <span class="built_in">console</span>.log(el, x, y);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="comment">// 此回调函数是可选项的设置</span></div><div class="line">        <span class="comment">// 与 CSS 结合时使用</span></div><div class="line">        dropping: <span class="function"><span class="keyword">function</span> (<span class="params">el, done</span>) </span>&#123;</div><div class="line">            <span class="comment">/* eslint-disable no-unused-vars */</span></div><div class="line">            <span class="keyword">let</span> rf = el.offsetHeight; <span class="comment">// 触发一下浏览器重绘</span></div><div class="line">            <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">                el.style.display = <span class="string">''</span>;</div><div class="line">                el.style.webkitTransform = <span class="string">'translate3d(0,0,0)'</span>;</div><div class="line">                el.style.transform = <span class="string">'translate3d(0,0,0)'</span>;</div><div class="line">                <span class="keyword">let</span> inner = el.getElementsByClassName(<span class="string">'inner-hook'</span>)[<span class="number">0</span>];</div><div class="line">                inner.style.webkitTransform = <span class="string">'translate3d(0,0,0)'</span>;</div><div class="line">                inner.style.transform = <span class="string">'translate3d(0,0,0)'</span>;</div><div class="line">                <span class="comment">// 监听动画结束事件，之后执行done函数</span></div><div class="line">                el.addEventListener(<span class="string">'transitionend'</span>, done);</div><div class="line">            &#125;);</div><div class="line">            <span class="comment">// done();</span></div><div class="line">        &#125;,</div><div class="line">        afterDrop: <span class="function"><span class="keyword">function</span> (<span class="params">el</span>) </span>&#123;</div><div class="line">            <span class="keyword">let</span> ball = <span class="keyword">this</span>.dropBalls.shift();</div><div class="line">            <span class="keyword">if</span> (ball) &#123;</div><div class="line">                ball.show = <span class="literal">false</span>;</div><div class="line">                el.style.display = <span class="string">'none'</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>阻止冒泡/默认事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;content-right&quot; @click.stop.prevent=&quot;pay&quot;&gt;</div><div class="line">    &lt;div class=&quot;pay&quot; :class=&quot;payClass&quot;&gt;&#123;&#123;payDesc&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="至此header和goods组件的关键点总结完毕，下章是food和star组件的总结。"><a href="#至此header和goods组件的关键点总结完毕，下章是food和star组件的总结。" class="headerlink" title="至此header和goods组件的关键点总结完毕，下章是food和star组件的总结。"></a>至此header和goods组件的关键点总结完毕，下章是food和star组件的总结。</h5>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉得我的文章对您有用，请随意赞赏。您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Ezreal Sam WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Ezreal Sam Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/study/" rel="tag"># study</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/20/Vue.js高仿饿了么实战总结（一）/" rel="next" title="Vue.js高仿饿了么实战总结（一）">
+                <i class="fa fa-chevron-left"></i> Vue.js高仿饿了么实战总结（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Ezreal Sam" />
+          <p class="site-author-name" itemprop="name">Ezreal Sam</p>
+           
+              <p class="site-description motion-element" itemprop="description">Life is a on return journey .</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sam694260665" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/2629793611" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wf.uisdc.com/cn/" title="google前端开发基础" target="_blank">google前端开发基础</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-js高仿饿了么实战总结（二）"><span class="nav-number">1.</span> <span class="nav-text">Vue.js高仿饿了么实战总结（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、项目实战-header组件开发"><span class="nav-number">1.1.</span> <span class="nav-text">一、项目实战-header组件开发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、项目实战-goods-商品列表页开发"><span class="nav-number">1.2.</span> <span class="nav-text">二、项目实战-goods 商品列表页开发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#至此header和goods组件的关键点总结完毕，下章是food和star组件的总结。"><span class="nav-number">1.3.</span> <span class="nav-text">至此header和goods组件的关键点总结完毕，下章是food和star组件的总结。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ezreal Sam</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+    <div class="powered-by"></div>
+  <span class="post-count">博客全站共3.9k字</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144829"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
